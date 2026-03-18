@@ -25,7 +25,7 @@ using namespace std;
 static void AES_128_Key_Expansion(const unsigned char *userkey, void *key);
 static inline void AES_encrypt(__m128i tmp, __m128i *out,__m128i *key, unsigned rounds);
 static void imprimiArreglo(int tam, unsigned char *in );
-
+static inline uint64_t cpucycles(unsigned *aux);
 int main(){
 	ALIGN(16) unsigned char key[16] = {0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
     ALIGN(16) unsigned char pt[16]=  {0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0};
@@ -98,4 +98,9 @@ void imprimiArreglo(int tam, unsigned char *in )
     }
     printf("\n" );
 
+}
+
+static inline uint64_t cpucycles(unsigned *aux)
+{
+    return __rdtscp(aux);
 }
